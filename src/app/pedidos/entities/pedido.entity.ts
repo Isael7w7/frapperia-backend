@@ -1,3 +1,5 @@
+import { Cliente } from 'src/app/clientes/entities/cliente.entity';
+import { DetallePedido } from 'src/app/detalle-pedido/entities/detalle-pedido.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -7,8 +9,7 @@ import {
   OneToMany,
   CreateDateColumn,
 } from 'typeorm';
-import { Cliente } from './cliente.entity';
-import { DetallePedido } from './detalle-pedido.entity';
+
 @Entity({ name: 'Pedidos' })
 export class Pedido {
   @PrimaryGeneratedColumn() idPedido: number;

@@ -1,3 +1,4 @@
+import { GrupoOpcionesProducto } from 'src/app/grupo-opciones-producto/entities/grupo-opciones-producto.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -5,7 +6,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { GrupoOpcionesProducto } from './grupo-opciones-producto.entity';
+
 @Entity({ name: 'OpcionesProducto' })
 export class OpcionesProducto {
   @PrimaryGeneratedColumn() idOpcion: number;

@@ -1,3 +1,5 @@
+import { DetallePedido } from 'src/app/detalle-pedido/entities/detalle-pedido.entity';
+import { OpcionesProducto } from 'src/app/opciones-producto/entities/opciones-producto.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -5,8 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { DetallePedido } from './detalle-pedido.entity';
-import { OpcionesProducto } from './opciones-producto.entity';
+
 @Entity({ name: 'OpcionesDetallePedido' })
 export class OpcionesDetallePedido {
   @PrimaryGeneratedColumn() idOpcionDetallePedido: number;

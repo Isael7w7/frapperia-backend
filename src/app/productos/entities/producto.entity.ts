@@ -1,3 +1,5 @@
+import { Categoria } from 'src/app/categorias/entities/categoria.entity';
+import { GrupoOpcionesProducto } from 'src/app/grupo-opciones-producto/entities/grupo-opciones-producto.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -6,8 +8,6 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import { Categoria } from './categoria.entity';
-import { GrupoOpcionesProducto } from './grupo-opciones-producto.entity';
 @Entity({ name: 'Productos' })
 export class Producto {
   @PrimaryGeneratedColumn() idProducto: number;
