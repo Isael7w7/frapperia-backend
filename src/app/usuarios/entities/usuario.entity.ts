@@ -14,7 +14,7 @@ export class Usuario {
   nombreUsuario: string;
 
   @Column()
-  contraseña: string;
+  contrasena: string;
 
   @Column({ type: 'enum', enum: ['admin', 'vendedor'] }) //Cambia el tipo de rol
   rol: string;

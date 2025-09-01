@@ -2,8 +2,11 @@ import { Module } from '@nestjs/common';
 import { ProductosService } from './productos.service';
 import { ProductosController } from './productos.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Producto } from './entities/producto.entity';
-import { Categoria } from '../categorias/entities/categoria.entity';
+
+// SOLUCIÓN AL ERROR 1 Y 2: Añadimos las importaciones que faltaban
+import { Producto } from '../entities/producto.entity';
+import { GrupoOpcionesProducto } from '../entities/grupo-opciones-producto.entity';
+import { OpcionesProducto } from '../entities/opciones-producto.entity';
 
 @Module({
   imports: [
@@ -11,7 +14,6 @@ import { Categoria } from '../categorias/entities/categoria.entity';
       Producto,
       GrupoOpcionesProducto,
       OpcionesProducto,
-      Categoria, // Importar si necesitas validaciones o lógicas relacionadas
     ]),
   ],
   controllers: [ProductosController],

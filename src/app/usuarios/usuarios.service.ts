@@ -1,37 +1,45 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUsuarioDto } from './dto/create-usuario.dto';
-import { UpdateUsuarioDto } from './dto/update-usuario.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Usuario } from './entities/usuario.entity';
 import { Repository } from 'typeorm';
 
+import { CreateUsuarioDto } from './dto/create-usuario.dto';
+import { UpdateUsuarioDto } from './dto/update-usuario.dto';
+import { Usuario } from './entities/usuario.entity';
 @Injectable()
 export class UsuariosService {
   constructor(
     @InjectRepository(Usuario)
     private readonly usuarioRepository: Repository<Usuario>,
   ) {}
-
   async create(createUsuarioDto: CreateUsuarioDto): Promise<Usuario> {
-    // const salt = await bcrypt.genSalt()
-    //  createUsuarioDto.contrasena = await bcrypt.hash(createUsuarioDto.contrasena, salt);
+    // Aquí deberías hashear la contraseña antes de guardarla
     const usuario = this.usuarioRepository.create(createUsuarioDto);
     return this.usuarioRepository.save(usuario);
   }
-
-  findAll() {
-    return `This action returns all usuarios`;
+  findAll(): Promise<Usuario[]> {
+    return this.usuarioRepository.find();
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} usuario`;
+  async findOne(id: number): Promise<Usuario> {
+    const usuario = await this.usuarioRepository.findOneBy({ idUsuario: id });
+    if (!usuario)
+      throw new NotFoundException(`Usuario con ID #${id} no encontrado.`);
+    return usuario;
   }
-
-  update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
-    return `This action updates a #${id} usuario`;
+  async update(
+    id: number,
+    updateUsuarioDto: UpdateUsuarioDto,
+  ): Promise<Usuario> {
+    const usuario = await this.usuarioRepository.preload({
+      idUsuario: id,
+      ...updateUsuarioDto,
+    });
+    if (!usuario)
+      throw new NotFoundException(`Usuario con ID #${id} no encontrado.`);
+    return this.usuarioRepository.save(usuario);
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} usuario`;
+  async remove(id: number): Promise<void> {
+    const result = await this.usuarioRepository.delete(id);
+    if (result.affected === 0)
+      throw new NotFoundException(`Usuario con ID #${id} no encontrado.`);
   }
 }

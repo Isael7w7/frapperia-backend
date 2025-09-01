@@ -1,10 +1,20 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost', // o la IP de tu servidor de BD
+      port: 3306,
+      username: 'root', // ej. 'root'
+      password: '',
+      database: 'frappes', // El nombre que le diste a tu BD
+      entities: [__dirname + '/../**/*.entity{.ts,.js}'], // Descubre entidades automáticamente
+      synchronize: true, // En desarrollo, crea las tablas si no existen. Poner en 'false' en producción.
+    }),
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
